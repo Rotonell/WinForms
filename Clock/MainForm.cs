@@ -77,5 +77,10 @@ namespace Clock
 			this.TopMost = true;
 			this.TopMost = false;
 		}
+
+		private void tsmiShowWeekday_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

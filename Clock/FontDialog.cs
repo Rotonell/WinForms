@@ -15,6 +15,7 @@ namespace Clock
 	public partial class FontDialog : Form
 	{
 		public Font Font {  get; set; }
+		int lastChosenFont = 0;
 		public FontDialog()
 		{
 			InitializeComponent();
@@ -24,6 +25,7 @@ namespace Clock
 
 		private void FontDialog_Load(object sender, EventArgs e)
 		{
+			
 		}
 		void LoadFonts(string extention)
 		{
@@ -75,6 +77,13 @@ namespace Clock
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
 			this.Font = labelExemple.Font;
+			this.lastChosenFont = comboBoxFont.SelectedIndex;
+		}
+
+		private void buttonCancel_Click(object sender, EventArgs e)
+		{
+			labelExemple.Font = this.Font;
+			comboBoxFont.SelectedIndex = lastChosenFont;
 		}
 	}
 }

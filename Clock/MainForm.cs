@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,14 +13,22 @@ namespace Clock
 {
 	public partial class MainForm : Form
 	{
+		FontDialog FontDialog = new FontDialog();
 		ColorDialog colorDialodForeground = new ColorDialog();
 		ColorDialog colorDialodBackground = new ColorDialog();
 		public MainForm()
 		{
 			InitializeComponent();
+			this.StartPosition = FormStartPosition.Manual;
+			this.Location = new Point
+				(
+				Screen.PrimaryScreen.Bounds.Width - 250,
+				50
+				);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			SetVisibility(false);
+			this.TopMost = tsmiTopmost.Checked = true;
 		}
 
 		void SetVisibility(bool visible)
@@ -123,6 +132,21 @@ namespace Clock
 			if (colorDialodBackground.ShowDialog() == DialogResult.OK)
 			{
 				labelTime.BackColor = colorDialodBackground.Color;
+			}
+		}
+
+		private void tsmiFont_Click(object sender, EventArgs e)
+		{
+			FontDialog.Location = new Point
+				(
+				this.Location.X - FontDialog.Width - 10,
+				this.Location.Y
+				);
+			FontDialog.Font = labelTime.Font;
+			DialogResult result = FontDialog.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				labelTime.Font = FontDialog.Font;
 			}
 		}
 	}

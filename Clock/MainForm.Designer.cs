@@ -42,6 +42,8 @@
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsmiFont = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsmiColor = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmiForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmiBackgroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsmiAlarms = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,8 +55,6 @@
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.tsmiForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
-			this.tsmiBackgroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -153,6 +153,7 @@
 			this.tsmiFont.Name = "tsmiFont";
 			this.tsmiFont.Size = new System.Drawing.Size(210, 24);
 			this.tsmiFont.Text = "Font";
+			this.tsmiFont.Click += new System.EventHandler(this.tsmiFont_Click);
 			// 
 			// tsmiColor
 			// 
@@ -162,6 +163,20 @@
 			this.tsmiColor.Name = "tsmiColor";
 			this.tsmiColor.Size = new System.Drawing.Size(210, 24);
 			this.tsmiColor.Text = "Color";
+			// 
+			// tsmiForegroundColor
+			// 
+			this.tsmiForegroundColor.Name = "tsmiForegroundColor";
+			this.tsmiForegroundColor.Size = new System.Drawing.Size(207, 26);
+			this.tsmiForegroundColor.Text = "ForegroundColor";
+			this.tsmiForegroundColor.Click += new System.EventHandler(this.tsmiForegroundColor_Click);
+			// 
+			// tsmiBackgroundColor
+			// 
+			this.tsmiBackgroundColor.Name = "tsmiBackgroundColor";
+			this.tsmiBackgroundColor.Size = new System.Drawing.Size(207, 26);
+			this.tsmiBackgroundColor.Text = "BackgroundColor";
+			this.tsmiBackgroundColor.Click += new System.EventHandler(this.tsmiBackgroundColor_Click);
 			// 
 			// toolStripSeparator4
 			// 
@@ -244,20 +259,6 @@
 			this.notifyIcon.Text = "System tray";
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
-			// 
-			// tsmiForegroundColor
-			// 
-			this.tsmiForegroundColor.Name = "tsmiForegroundColor";
-			this.tsmiForegroundColor.Size = new System.Drawing.Size(224, 26);
-			this.tsmiForegroundColor.Text = "ForegroundColor";
-			this.tsmiForegroundColor.Click += new System.EventHandler(this.tsmiForegroundColor_Click);
-			// 
-			// tsmiBackgroundColor
-			// 
-			this.tsmiBackgroundColor.Name = "tsmiBackgroundColor";
-			this.tsmiBackgroundColor.Size = new System.Drawing.Size(224, 26);
-			this.tsmiBackgroundColor.Text = "BackgroundColor";
-			this.tsmiBackgroundColor.Click += new System.EventHandler(this.tsmiBackgroundColor_Click);
 			// 
 			// MainForm
 			// 

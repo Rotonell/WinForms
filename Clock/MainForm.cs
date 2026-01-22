@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using Microsoft.Win32;
 
 namespace Clock
@@ -17,6 +18,7 @@ namespace Clock
 		FontDialog FontDialog = new FontDialog();
 		ColorDialog colorDialodForeground = new ColorDialog();
 		ColorDialog colorDialodBackground = new ColorDialog();
+		AlarmsForm alarms = new AlarmsForm();
 		public MainForm()
 		{
 			InitializeComponent();
@@ -40,6 +42,20 @@ namespace Clock
 			this.ShowInTaskbar = visible;
 			this.FormBorderStyle = visible ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
 			this.TransparencyKey = visible ? Color.Empty : this.BackColor;
+		}
+		void SaveSettings()
+		{
+			Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+			//MessageBox.Show
+			//	(
+			//	this,
+			//	Directory.GetCurrentDirectory(),
+			//	"Settings path",
+			//	MessageBoxButtons.OK
+			//	);
+			StreamWriter writer = new StreamWriter("Settings.ini");
+			writer.WriteLine($"Topmost:{tsmiTopmost.Checked}");
+			writer.Close();
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
@@ -157,6 +173,16 @@ namespace Clock
 			RegistryKey rk = Registry.CurrentUser.OpenSubKey("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\RunHKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 			if (tsmiAutoStart.Checked) rk.SetValue(key_name, Application.ExecutablePath);
 			else rk.DeleteValue(key_name, false);
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			SaveSettings();
+		}
+
+		private void tsmiAlarms_Click(object sender, EventArgs e)
+		{
+			alarms.ShowDialog();
 		}
 	}
 }

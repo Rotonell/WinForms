@@ -21,7 +21,11 @@ namespace Clock
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			alarm.ShowDialog();
+			AlarmDialog alarm = new AlarmDialog();
+			if (alarm.ShowDialog() == DialogResult.OK)
+			{
+				listBoxAlarms.Items.Add(new Alarm(alarm.Alarm));
+			}
 		}
 	}
 }

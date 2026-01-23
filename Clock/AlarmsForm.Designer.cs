@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.buttonAdd = new System.Windows.Forms.Button();
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.listBoxAlarms = new System.Windows.Forms.ListBox();
 			this.buttonDelete = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -43,14 +43,14 @@
 			this.buttonAdd.UseVisualStyleBackColor = true;
 			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
 			// 
-			// listBox1
+			// listBoxAlarms
 			// 
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 16;
-			this.listBox1.Location = new System.Drawing.Point(13, 13);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(504, 308);
-			this.listBox1.TabIndex = 1;
+			this.listBoxAlarms.FormattingEnabled = true;
+			this.listBoxAlarms.ItemHeight = 16;
+			this.listBoxAlarms.Location = new System.Drawing.Point(13, 13);
+			this.listBoxAlarms.Name = "listBoxAlarms";
+			this.listBoxAlarms.Size = new System.Drawing.Size(504, 308);
+			this.listBoxAlarms.TabIndex = 1;
 			// 
 			// buttonDelete
 			// 
@@ -67,7 +67,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(608, 330);
 			this.Controls.Add(this.buttonDelete);
-			this.Controls.Add(this.listBox1);
+			this.Controls.Add(this.listBoxAlarms);
 			this.Controls.Add(this.buttonAdd);
 			this.Name = "AlarmsForm";
 			this.Text = "AlarmsForm";
@@ -78,7 +78,7 @@
 		#endregion
 
 		private System.Windows.Forms.Button buttonAdd;
-		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.ListBox listBoxAlarms;
 		private System.Windows.Forms.Button buttonDelete;
 	}
 }

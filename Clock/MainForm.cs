@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace Clock
@@ -31,7 +32,8 @@ namespace Clock
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			SetVisibility(false);
-			this.TopMost = tsmiTopmost.Checked = true;
+			//this.TopMost = tsmiTopmost.Checked = true;
+			LoadSettings();
 		}
 
 		void SetVisibility(bool visible)
@@ -54,8 +56,48 @@ namespace Clock
 			//	MessageBoxButtons.OK
 			//	);
 			StreamWriter writer = new StreamWriter("Settings.ini");
-			writer.WriteLine($"Topmost:{tsmiTopmost.Checked}");
+			writer.WriteLine(tsmiTopmost.Checked);
+			writer.WriteLine(tsmiShowControls.Checked);
+			writer.WriteLine(tsmiShowConsole.Checked);
+
+			writer.WriteLine(tsmiShowDate.Checked);
+			writer.WriteLine(tsmiShowWeekday.Checked);
+			writer.WriteLine(tsmiAutoStart.Checked);
+
+			writer.WriteLine(labelTime.BackColor.ToArgb());
+			writer.WriteLine(labelTime.ForeColor.ToArgb());
+
+			writer.WriteLine(labelTime.Font.Name);
+
+			//writer.WriteLine(FontDialog.Name);
+			//writer.WriteLine(labelTime.Font.Size);
+
 			writer.Close();
+
+			//writer.WriteLine($"Topmost:{tsmiTopmost.Checked}");
+			//writer.Close();
+		}
+
+		void LoadSettings()
+		{
+			Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+			
+				StreamReader reader = new StreamReader("Settings.ini");
+
+				this.TopMost = tsmiTopmost.Checked = bool.Parse(reader.ReadLine());
+				tsmiShowControls.Checked = bool.Parse(reader.ReadLine());
+				tsmiShowConsole.Checked = bool.Parse(reader.ReadLine());
+				tsmiShowDate.Checked = bool.Parse(reader.ReadLine());
+				tsmiShowWeekday.Checked = bool.Parse(reader.ReadLine());
+				tsmiAutoStart.Checked = bool.Parse(reader.ReadLine());
+
+				labelTime.BackColor = colorDialodBackground.Color = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
+				labelTime.ForeColor = colorDialodForeground.Color = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
+
+				//FontDialog = new FontDialog(reader.ReadLine(), reader.ReadLine());
+				//labelTime.Font = FontDialog.Font;
+
+				reader.Close();
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
@@ -170,9 +212,10 @@ namespace Clock
 		private void tsmiAutoStart_CheckedChanged(object sender, EventArgs e)
 		{
 			string key_name = "ClockPV_521";
-			RegistryKey rk = Registry.CurrentUser.OpenSubKey("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\RunHKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 			if (tsmiAutoStart.Checked) rk.SetValue(key_name, Application.ExecutablePath);
 			else rk.DeleteValue(key_name, false);
+			rk.Dispose();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -184,5 +227,15 @@ namespace Clock
 		{
 			alarms.ShowDialog();
 		}
+
+		private void tsmiShowConsole_CheckedChanged(object sender, EventArgs e)
+		{
+			if((sender as ToolStripMenuItem).Checked) AllocConsole();
+			else FreeConsole();
+		}
+		[DllImport("kernel32.dll")]
+		public static extern void AllocConsole();
+		[DllImport("kernel32.dll")]
+		public static extern void FreeConsole();
 	}
 }

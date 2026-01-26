@@ -23,6 +23,27 @@ namespace Clock
 			Alarm = new Alarm();
 		}
 
+		public AlarmDialog(Alarm alarm) : this()
+		{
+			Alarm = alarm;
+			Extract();
+		}
+
+		void Extract()
+		{
+			if (Alarm.Date != DateTime.MaxValue)
+			{
+				dtpDate.Value = Alarm.Date;
+				checkBoxUseDate.Checked = true;
+			}
+			dtpTime.Value = DateTime.Now.Date + Alarm.Time;
+			//if (checkBoxUseDate.Checked) Alarm.Days = new Week(0);
+			//else	
+			Alarm.Days.Extract(clbWeekDays);
+			labelFileName.Text = Alarm.Filename;
+		}
+
+
 		private void checkBoxUseDate_CheckedChanged(object sender, EventArgs e)
 		{
 			dtpDate.Enabled = (sender as CheckBox).Checked;
@@ -37,6 +58,7 @@ namespace Clock
 
 		private void clbWeekDays_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
+			
 		}
 
 		private void clbWeekDays_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,7 +96,7 @@ namespace Clock
 			Alarm.Time = dtpTime.Value.TimeOfDay;
 			Alarm.Days = new Week(GetDaysMask());
 			//Alarm.Days = new Week(checkBoxUseDate.Checked ? (byte)0 : GetDaysMask());
-			if (Alarm.Days.GetMask() == 0) Alarm.Days = new Week(127);
+			//if (Alarm.Days.GetMask() == 0) Alarm.Days = new Week(127);
 			Alarm.Filename = labelFileName.Text;
 		}
 	}

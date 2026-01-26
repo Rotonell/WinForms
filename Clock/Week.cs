@@ -15,6 +15,25 @@ namespace Clock
 			this.days = days;
 		}
 
+		public byte GetMask() => days;
+		public /*System.Windows.Forms.CheckedListBox*/void Extract(System.Windows.Forms.CheckedListBox clb)
+		{
+			if (clb.Items.Count != 7) return;
+			for (byte i = 0; i < 7; i++)
+			{
+				//int d = ((1 << i) & days);
+				//(clb.Items[i] as CheckBox).Checked = Convert.ToBoolean(d);
+				clb.SetItemChecked(i, Convert.ToBoolean((1 << i) & days));
+			}
+			//return clb;
+		}
+		public bool Contains(byte day)
+		{
+			if (day == 0) day = 7;
+			day--;
+			return (days & (1 << day)) != 0;
+		}
+
 		public override string ToString()
 		{
 			string days = "";
@@ -23,7 +42,7 @@ namespace Clock
 				byte day = (byte)(1 << i);
 				if ((this.days & day) != 0) days += NAMES[i];
 			}
-			return base.ToString();
+			return days;
 		}
 	}
 }

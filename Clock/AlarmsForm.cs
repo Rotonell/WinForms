@@ -27,5 +27,19 @@ namespace Clock
 				listBoxAlarms.Items.Add(new Alarm(alarm.Alarm));
 			}
 		}
+
+		private void listBoxAlarms_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			if (listBoxAlarms.Items.Count > 0 && listBoxAlarms.SelectedItem != null)
+			{
+				AlarmDialog alarm = new AlarmDialog(listBoxAlarms.SelectedItem as Alarm);
+				alarm.ShowDialog();
+				listBoxAlarms.Items[listBoxAlarms.SelectedIndex] = new Alarm(alarm.Alarm);
+			}
+			else
+			{
+				buttonAdd_Click(sender, e);
+			}
+		}
 	}
 }
